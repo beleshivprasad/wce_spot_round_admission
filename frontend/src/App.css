@@ -1,0 +1,28 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+}
+
+main {
+  background-color: rgb(255, 243, 243);
+  min-height: 86vh;
+}
+
+.table {
+  margin-top: 10%;
+}
+.vacTable {
+  border: 1px solid black;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  min-width: 80%;
+}

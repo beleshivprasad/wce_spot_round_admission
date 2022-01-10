@@ -1,0 +1,8 @@
+.home{
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    min-width: 50%;
+    max-height: 100%;
+    transform: translate(-50%,-50%);
+}
