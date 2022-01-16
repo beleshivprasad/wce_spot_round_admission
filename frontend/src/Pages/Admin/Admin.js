@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./Admin.css";
+import MainScreen from "../../Components/MainScreen";
 
 const Admin = () => {
   const [username, setUsername] = useState("");
@@ -11,11 +11,8 @@ const Admin = () => {
     e.preventDefault();
   };
   return (
-    <div className="home">
+    <MainScreen title={"Admin Login"}>
       <Container>
-        <Row>
-          <h2>Admin Login</h2>
-        </Row>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Username </Form.Label>
@@ -47,7 +44,7 @@ const Admin = () => {
           </Col>
         </Row>
       </Container>
-    </div>
+    </MainScreen>
   );
 };
 

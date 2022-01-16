@@ -1,14 +1,13 @@
 import React from "react";
 import { Container, Row, Table } from "react-bootstrap";
+import MainScreen from "../../Components/MainScreen";
 import "./Instruction.css";
 
 const Instructions = () => {
   return (
-    <div className="">
+    <MainScreen title={"Instructions"}>
       <Container>
         <Row className="center">
-          <h2>Instructions</h2>
-          <br></br>
           <h5>Please Read the Instructions Carefully</h5>
         </Row>
         <Row>
@@ -219,7 +218,7 @@ const Instructions = () => {
           </ol>
         </Row>
       </Container>
-    </div>
+    </MainScreen>
   );
 };
 

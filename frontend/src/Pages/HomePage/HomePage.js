@@ -1,16 +1,15 @@
 import React from "react";
 import "../Pages.css";
 import { Container, Row } from "react-bootstrap";
+import MainScreen from "../../Components/MainScreen";
 
 const Homepage = () => {
   return (
-    <div className="home">
+    <MainScreen title={"Welcome the WCE Sangli Spot Round Admission Process"}>
       <Container>
-        <Row>
-          <h2>Welcome the WCE Sangli Spot Round Admission Process</h2>
-        </Row>
+        <Row></Row>
       </Container>
-    </div>
+    </MainScreen>
   );
 };
 

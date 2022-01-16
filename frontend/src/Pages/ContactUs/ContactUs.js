@@ -1,11 +1,12 @@
 import React from "react";
 import { Card, Button, Container, Row, Col, Form } from "react-bootstrap";
+import MainScreen from "../../Components/MainScreen";
 import "../Pages.css";
 import "./ContactUs.css";
 
 const ContactUs = () => {
   return (
-    <div className="home">
+    <MainScreen title={"Contact Us"}>
       <Card>
         <Card.Header>Get in Touch</Card.Header>
         <Card.Body>
@@ -60,7 +61,7 @@ const ContactUs = () => {
           </Container>
         </Card.Body>
       </Card>
-    </div>
+    </MainScreen>
   );
 };
 

@@ -1,12 +1,11 @@
 import React from "react";
+import MainScreen from "../../Components/MainScreen";
 
 const CheckVacancy = () => {
   return (
-    <div>
-      <br />
-      <h2 style={{ textAlign: "center" }}>
-        WALCHAND COLLEGE OF ENGINEERING , SPOT ROUND VACANCY POSITION
-      </h2>
+    <MainScreen
+      title={"WALCHAND COLLEGE OF ENGINEERING , SPOT ROUND VACANCY POSITION"}
+    >
       <div className="table">
         <table className="vacTable">
           <tr>
@@ -702,7 +701,7 @@ const CheckVacancy = () => {
         Note:This is dynamic round and vacancy may be created at any instance
         during admission process.
       </h5>
-    </div>
+    </MainScreen>
   );
 };
 

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <Navbar bg="secondary" expand={false}>
+    <Navbar bg="secondary" expand={false} style={{opacity:'1'}}>
       <Container fluid>
         <Navbar.Brand href="/" className="mx-auto" style={{ color: "white" }}>
           <h1>Walchand College of Engineering , Sangli</h1>

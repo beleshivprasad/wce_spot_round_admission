@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import MainScreen from "../../Components/MainScreen";
 
 const CheckStatus = () => {
   const [fname, setFname] = useState("");
@@ -11,11 +12,8 @@ const CheckStatus = () => {
     e.preventDefault();
   };
   return (
-    <div className="home">
+    <MainScreen title={"Check Allotment Status"}>
       <Container>
-        <Row>
-          <h2>Check Allotment Status</h2>
-        </Row>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>First Name </Form.Label>
@@ -53,12 +51,12 @@ const CheckStatus = () => {
         <br />
         <Row>
           <Col>
-            Not Registered  ?{" "}
+            Not Registered ?{" "}
             <Link to="/register">Register Yourself first.</Link>
           </Col>
         </Row>
       </Container>
-    </div>
+    </MainScreen>
   );
 };
 
