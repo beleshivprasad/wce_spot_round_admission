@@ -19,25 +19,33 @@ const studentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    percentile: {
-      type: String,
+    dob: {
+      type: Date,
       required: true,
     },
     cetID: {
       type: String,
       required: true,
     },
-    gender: {
+    percentile: {
       type: String,
       required: true,
     },
-    dob: {
-      type: Date,
+    quota: {
+      type: String,
       required: true,
     },
     caste: {
       type: String,
       required: true,
+    },
+    branch: {
+      type: String,
+      required: true,
+    },
+    alloted: {
+      type: Boolean,
+      default: false,
     },
     paymentDone: {
       type: Boolean,

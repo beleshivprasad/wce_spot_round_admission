@@ -9,6 +9,8 @@ import CheckVacancy from "./Pages/CheckVacancy/CheckVacancy";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 import Instructions from "./Pages/Instructions/Instructions";
 import Admin from "./Pages/Admin/Admin";
+import StudentList from "./Pages/StudentList/StudentList";
+import UpdateVacancy from "./Pages/UpdateVacancy/UpdateVacancy";
 
 function App() {
   return (
@@ -17,6 +19,9 @@ function App() {
       <main>
         <Route path="/" exact>
           <HomePage></HomePage>
+        </Route>
+        <Route path="/studentist" exact>
+          <StudentList></StudentList>
         </Route>
         <Route path="/admin" exact>
           <Admin></Admin>
@@ -27,8 +32,11 @@ function App() {
         <Route path="/status" exact>
           <CheckStatus></CheckStatus>
         </Route>
-        <Route path="/vacancy" exact>
+        <Route path="/vacancy/show" exact>
           <CheckVacancy></CheckVacancy>
+        </Route>
+        <Route path="/vacancy/update" exact>
+          <UpdateVacancy></UpdateVacancy>
         </Route>
         <Route path="/contact" exact>
           <ContactUs></ContactUs>

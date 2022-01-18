@@ -13,7 +13,8 @@ const NewRegister = () => {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [gender, setGender] = useState("");
+  const [quota, setQuota] = useState("");
+  const [branch, setBranch] = useState("");
   const [caste, setCaste] = useState("");
   const [percentile, setPercentile] = useState("");
   const [cetID, setCetID] = useState("");
@@ -24,6 +25,18 @@ const NewRegister = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    console.log({
+      fname,
+      lname,
+      email,
+      phone,
+      dob,
+      caste,
+      quota,
+      branch,
+      cetID,
+      percentile,
+    });
     try {
       const config = {
         headers: {
@@ -32,18 +45,45 @@ const NewRegister = () => {
       };
 
       setLoading(true);
+
       const { data } = await axios.post(
         "/student/registration",
-        { fname, lname, email, phone, percentile, cetID, dob, caste, gender },
+        {
+          fname,
+          lname,
+          email,
+          phone,
+          dob,
+          caste,
+          quota,
+          cetID,
+          percentile,
+          branch,
+        },
         config
       );
+      if (data) {
+        setSuccess("Registered Successfully");
+      }
+      setTimeout(() => {
+        setSuccess(false);
+      }, 3000);
       setLoading(false);
       console.log(data);
-    } catch (error) {}
+    } catch (error) {
+      setError(error.response.data.message);
+      setLoading(false);
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+    }
   };
 
   return (
     <MainScreen title={"Register Student"}>
+      <br />
+      <hr />
+      <br />
       <Container>
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
         {success && (
@@ -87,6 +127,7 @@ const NewRegister = () => {
               placeholder="Enter Phone Number"
               value={phone}
               maxLength={10}
+              minLength={10}
               onChange={(e) => setPhone(e.target.value)}
             />
           </Form.Group>
@@ -100,59 +141,79 @@ const NewRegister = () => {
             />
           </Form.Group>
           <br />
+          <hr />
+          <br />
           <Form.Group>
-            <Form.Label>Gender</Form.Label>
+            <Form.Label>Quota</Form.Label>
             <Form.Select
               aria-label="Default select example"
               onChange={(e) => {
-                setGender(e.target.value);
+                setQuota(e.target.value);
               }}
             >
-              <option>Select Grade</option>
-              <option value="MALE">MALE</option>
-              <option value="FEMALE">FEMALE</option>
+              <option value="">Select Quota</option>
+              <option value="g">General</option>
+              <option value="l">Ladies</option>
+              <option value="pw">PWD</option>
+              <option value="def">Defence</option>
             </Form.Select>
           </Form.Group>
           <br />
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>MHT-CET Percentile Score</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               placeholder="Enter _CET Percentile"
               value={percentile}
               onChange={(e) => setPercentile(e.target.value)}
             />
           </Form.Group>
-          <br />
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>MHT-CET Application ID</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               placeholder="Enter Application ID"
               value={cetID}
               onChange={(e) => setCetID(e.target.value)}
             />
           </Form.Group>
+          <Form.Group>
+            <Form.Label>Choose Branch</Form.Label>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(e) => {
+                setBranch(e.target.value);
+              }}
+            >
+              <option value="">Select Branch</option>
+              <option value="cse">Computer Science and Engineering</option>
+              <option value="it">Information Technology</option>
+              <option value="civil">Civil Engineering</option>
+              <option value="electronics">Electronics Engineering</option>
+              <option value="electrical">Electrical Engineering</option>
+              <option value="mechanical">Mechanical Engieering</option>
+            </Form.Select>
+          </Form.Group>
           <br />
           <Form.Group>
-            <Form.Label>Grade</Form.Label>
+            <Form.Label>Category</Form.Label>
             <Form.Select
               aria-label="Default select example"
               onChange={(e) => {
                 setCaste(e.target.value);
               }}
             >
-              <option value="">Select Grade</option>
-              <option value="OPEN">OPEN</option>
-              <option value="SC">SC</option>
-              <option value="ST">ST</option>
-              <option value="VJ/DT">VJ/DT</option>
-              <option value="NTB/NT1">NTB/NT1</option>
-              <option value="NTC/NT2">NTC/NT2</option>
-              <option value="NTD/NT3">NTD/NT3</option>
-              <option value="OBC">OBC</option>
-              <option value="SEBC">SEBC</option>
-              <option value="ORPHAN">ORPHAN</option>
+              <option value="">Select Category</option>
+              <option value="open">OPEN</option>
+              <option value="sc">SC</option>
+              <option value="st">ST</option>
+              <option value="vjdt">VJ/DT</option>
+              <option value="ntb">NTB/NT1</option>
+              <option value="ntc">NTC/NT2</option>
+              <option value="ntd">NTD/NT3</option>
+              <option value="obc">OBC</option>
+              <option value="sebc">SEBC</option>
+              {quota === "g" ? <option value="ophan">ORPHAN</option> : <></>}
             </Form.Select>
           </Form.Group>
           <br />

@@ -26,10 +26,21 @@
   align-items: center;
 }
 
-.spinner{
+.spinner {
   z-index: 100;
 }
 
+.status {
+  min-width: 100%;
+}
+tr {
+  padding: 10px;
+}
+td,th{
+  border: 1px solid black;
+  text-align: center;
+  padding: 10px;
+}
 @media only screen and (min-width: 1200px) {
 }
 
@@ -40,4 +51,3 @@
     justify-content: center;
   }
 }
-

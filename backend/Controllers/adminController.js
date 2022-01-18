@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Admin = require("../Models/adminModel");
 const bcrypt = require("bcryptjs");
+const Student = require("../Models/studentModel");
 
 const authAdmin = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
@@ -13,10 +14,24 @@ const authAdmin = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error("Wrong Password");
       }
-      res.status(200).json({ admin });
+      res.status(200).json(admin);
     });
   }
 });
 
-module.exports = { authAdmin };
+const fetchStudent = asyncHandler(async (req, res) => {
+  const { student } = await Student.find({})
+    .then((student) => {
+      if (student) {
+        res.status(200).json(student);
+      } else {
+        res.status(400);
+        throw new Error("No Student has Registered Yet");
+      }
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+});
 
+module.exports = { authAdmin, fetchStudent };

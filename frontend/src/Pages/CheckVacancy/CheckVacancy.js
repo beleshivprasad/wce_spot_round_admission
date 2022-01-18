@@ -1,24 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button, Container, Row } from "react-bootstrap";
 import MainScreen from "../../Components/MainScreen";
+import ErrorMessage from "../../Components/ErrorMessage";
+import SuccessMessage from "../../Components/SuccessMessage";
+import Loading from "../../Components/Loading";
+import axios from "axios";
 
 const CheckVacancy = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [vacancy, setVacancy] = useState({});
+  const getData = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      setLoading(true);
+
+      const { data } = await axios.post("/vacancy/show", {}, config);
+      setVacancy(data);
+      setLoading(false);
+    } catch (error) {
+      setError(error.response.data.message);
+      setLoading(false);
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+    }
+  };
+
   return (
     <MainScreen
       title={"WALCHAND COLLEGE OF ENGINEERING , SPOT ROUND VACANCY POSITION"}
     >
+      <Container>
+        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+        {success && (
+          <SuccessMessage variant="success">{success}</SuccessMessage>
+        )}
+        {loading && <Loading></Loading>}
+        <Button
+          style={{ margin: "10px" }}
+          type="button"
+          onClick={() => {
+            getData();
+          }}
+        >
+          Refresh
+        </Button>
+      </Container>
       <div className="table">
         <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
-            <th colspan="2">OPEN</th>
-            <th colspan="2">sc</th>
-            <th colspan="2">ST</th>
-            <th colspan="2">VJ/DT</th>
-            <th colspan="2">NTB/NT1</th>
-            <th colspan="2">NTC/NT2</th>
-            <th colspan="2">NTD/NT3</th>
-            <th colspan="2">OBC</th>
-            <th colspan="2">SEBC</th>
+            <th colSpan={2}>OPEN</th>
+            <th colspan={2}>sc</th>
+            <th colspan={2}>ST</th>
+            <th colspan={2}>VJ/DT</th>
+            <th colspan={2}>NTB/NT1</th>
+            <th colspan={2}>NTC/NT2</th>
+            <th colspan={2}>NTD/NT3</th>
+            <th colspan={2}>OBC</th>
+            <th colspan={2}>SEBC</th>
             <th>ORPHAN</th>
             <th>TOTAL</th>
           </tr>
@@ -125,15 +172,15 @@ const CheckVacancy = () => {
         <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
-            <th colspan="2">OPEN</th>
-            <th colspan="2">sc</th>
-            <th colspan="2">ST</th>
-            <th colspan="2">VJ/DT</th>
-            <th colspan="2">NTB/NT1</th>
-            <th colspan="2">NTC/NT2</th>
-            <th colspan="2">NTD/NT3</th>
-            <th colspan="2">OBC</th>
-            <th colspan="2">SEBC</th>
+            <th colspan={2}>OPEN</th>
+            <th colspan={2}>sc</th>
+            <th colspan={2}>ST</th>
+            <th colspan={2}>VJ/DT</th>
+            <th colspan={2}>NTB/NT1</th>
+            <th colspan={2}>NTC/NT2</th>
+            <th colspan={2}>NTD/NT3</th>
+            <th colspan={2}>OBC</th>
+            <th colspan={2}>SEBC</th>
             <th>ORPHAN</th>
             <th>TOTAL</th>
           </tr>
@@ -240,15 +287,15 @@ const CheckVacancy = () => {
         <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
-            <th colspan="2">OPEN</th>
-            <th colspan="2">sc</th>
-            <th colspan="2">ST</th>
-            <th colspan="2">VJ/DT</th>
-            <th colspan="2">NTB/NT1</th>
-            <th colspan="2">NTC/NT2</th>
-            <th colspan="2">NTD/NT3</th>
-            <th colspan="2">OBC</th>
-            <th colspan="2">SEBC</th>
+            <th colspan={2}>OPEN</th>
+            <th colspan={2}>sc</th>
+            <th colspan={2}>ST</th>
+            <th colspan={2}>VJ/DT</th>
+            <th colspan={2}>NTB/NT1</th>
+            <th colspan={2}>NTC/NT2</th>
+            <th colspan={2}>NTD/NT3</th>
+            <th colspan={2}>OBC</th>
+            <th colspan={2}>SEBC</th>
             <th>ORPHAN</th>
             <th>TOTAL</th>
           </tr>
@@ -355,15 +402,15 @@ const CheckVacancy = () => {
         <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
-            <th colspan="2">OPEN</th>
-            <th colspan="2">sc</th>
-            <th colspan="2">ST</th>
-            <th colspan="2">VJ/DT</th>
-            <th colspan="2">NTB/NT1</th>
-            <th colspan="2">NTC/NT2</th>
-            <th colspan="2">NTD/NT3</th>
-            <th colspan="2">OBC</th>
-            <th colspan="2">SEBC</th>
+            <th colspan={2}>OPEN</th>
+            <th colspan={2}>sc</th>
+            <th colspan={2}>ST</th>
+            <th colspan={2}>VJ/DT</th>
+            <th colspan={2}>NTB/NT1</th>
+            <th colspan={2}>NTC/NT2</th>
+            <th colspan={2}>NTD/NT3</th>
+            <th colspan={2}>OBC</th>
+            <th colspan={2}>SEBC</th>
             <th>ORPHAN</th>
             <th>TOTAL</th>
           </tr>
@@ -470,15 +517,15 @@ const CheckVacancy = () => {
         <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
-            <th colspan="2">OPEN</th>
-            <th colspan="2">sc</th>
-            <th colspan="2">ST</th>
-            <th colspan="2">VJ/DT</th>
-            <th colspan="2">NTB/NT1</th>
-            <th colspan="2">NTC/NT2</th>
-            <th colspan="2">NTD/NT3</th>
-            <th colspan="2">OBC</th>
-            <th colspan="2">SEBC</th>
+            <th colspan={2}>OPEN</th>
+            <th colspan={2}>sc</th>
+            <th colspan={2}>ST</th>
+            <th colspan={2}>VJ/DT</th>
+            <th colspan={2}>NTB/NT1</th>
+            <th colspan={2}>NTC/NT2</th>
+            <th colspan={2}>NTD/NT3</th>
+            <th colspan={2}>OBC</th>
+            <th colspan={2}>SEBC</th>
             <th>ORPHAN</th>
             <th>TOTAL</th>
           </tr>
@@ -585,15 +632,15 @@ const CheckVacancy = () => {
         <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
-            <th colspan="2">OPEN</th>
-            <th colspan="2">sc</th>
-            <th colspan="2">ST</th>
-            <th colspan="2">VJ/DT</th>
-            <th colspan="2">NTB/NT1</th>
-            <th colspan="2">NTC/NT2</th>
-            <th colspan="2">NTD/NT3</th>
-            <th colspan="2">OBC</th>
-            <th colspan="2">SEBC</th>
+            <th colspan={2}>OPEN</th>
+            <th colspan={2}>sc</th>
+            <th colspan={2}>ST</th>
+            <th colspan={2}>VJ/DT</th>
+            <th colspan={2}>NTB/NT1</th>
+            <th colspan={2}>NTC/NT2</th>
+            <th colspan={2}>NTD/NT3</th>
+            <th colspan={2}>OBC</th>
+            <th colspan={2}>SEBC</th>
             <th>ORPHAN</th>
             <th>TOTAL</th>
           </tr>
