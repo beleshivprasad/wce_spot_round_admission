@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import MainScreen from "../../Components/MainScreen";
-import Loading from "../../Components/Loading";
-import ErrorMessage from "../../Components/ErrorMessage";
+import MainScreen from "../../../Components/MainScreen";
+import Loading from "../../../Components/MainScreen";
+import ErrorMessage from "../../../Components/MainScreen";
 import axios from "axios";
 
 const Admin = () => {

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import MainScreen from "../../Components/MainScreen";
-import Loading from "../../Components/Loading";
-import ErrorMessage from "../../Components/ErrorMessage";
-import SuccessMessage from "../../Components/SuccessMessage";
+import MainScreen from "../../../Components/MainScreen";
+import Loading from "../../../Components/MainScreen";
+import ErrorMessage from "../../../Components/MainScreen";
+import SuccessMessage from "../../../Components/SuccessMessage";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const UpdateVacancy = () => {
+  const [admin, setAdmin] = useState(localStorage.getItem("isAdmin"));
+  const history = useHistory();
+  admin !== "true" ? history.push("/") : history.push("/vacancy/update");
   const [branch, setBranch] = useState("");
   const [seat, setSeat] = useState("");
   const [loading, setLoading] = useState(false);

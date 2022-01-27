@@ -8,9 +8,12 @@ import CheckStatus from "./Pages/Registration/CheckStatus";
 import CheckVacancy from "./Pages/CheckVacancy/CheckVacancy";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 import Instructions from "./Pages/Instructions/Instructions";
-import Admin from "./Pages/Admin/Admin";
-import StudentList from "./Pages/StudentList/StudentList";
-import UpdateVacancy from "./Pages/UpdateVacancy/UpdateVacancy";
+import Admin from "./Pages/Admin/Login/Admin";
+import StudentList from "./Pages/Admin/StudentList/StudentList";
+import UpdateVacancy from "./Pages/Admin/UpdateVacancy/UpdateVacancy";
+import MeritList from "./Pages/MeritList/MeritList";
+import DisplayMerit from "./Pages/Admin/DisplayMerit/DisplayMerit";
+import ManageAllotment from "./Pages/Admin/Allotment/ManageAllotment";
 
 function App() {
   return (
@@ -20,8 +23,11 @@ function App() {
         <Route path="/" exact>
           <HomePage></HomePage>
         </Route>
-        <Route path="/studentist" exact>
+        <Route path="/studentlist" exact>
           <StudentList></StudentList>
+        </Route>
+        <Route path="/allotment" exact>
+          <ManageAllotment></ManageAllotment>
         </Route>
         <Route path="/admin" exact>
           <Admin></Admin>
@@ -41,8 +47,14 @@ function App() {
         <Route path="/contact" exact>
           <ContactUs></ContactUs>
         </Route>
+        <Route path="/merit">
+          <MeritList></MeritList>
+        </Route>
         <Route path="/instructions" exact>
           <Instructions></Instructions>
+        </Route>
+        <Route path="/displaymerit" exact>
+          <DisplayMerit></DisplayMerit>
         </Route>
       </main>
       <Footer></Footer>

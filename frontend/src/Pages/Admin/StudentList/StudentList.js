@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import MainScreen from "../../Components/MainScreen";
-import Loading from "../../Components/Loading";
-import ErrorMessage from "../../Components/ErrorMessage";
+import MainScreen from "../../../Components/MainScreen";
+import Loading from "../../../Components/MainScreen";
+import ErrorMessage from "../../../Components/MainScreen";
 import axios from "axios";
 import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 const StudentList = () => {
+  const [admin, setAdmin] = useState(localStorage.getItem("isAdmin"));
+  const history = useHistory();
+  admin !== "true" ? history.push("/") : history.push("/studentlist");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [studentData, setStudentData] = useState([]);
-  const [admin, setAdmin] = useState(localStorage.getItem("isAdmin"));
 
   async function getStudent() {
     try {

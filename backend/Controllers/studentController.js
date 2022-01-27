@@ -31,52 +31,45 @@ const registration = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please Fill All the fields");
   } else {
-    let str = `${quota}_${caste}_${branch}`;
-    const vac = await Vacancy.find({});
-    if (vac[0][str] === "0") {
+    const studentExist = await Student.find({ $or: [{ cetID }, { email }] });
+    if (studentExist.length !== 0) {
       res.status(400);
-      throw new Error("No Vacant Seat for this Application");
+      throw new Error("Student Already Registered");
     } else {
-      const studentExist = await Student.find({ $or: [{ cetID }, { email }] });
-      if (studentExist.length !== 0) {
-        res.status(400);
-        throw new Error("Student Already Registered");
-      } else {
-        const student = Student.create({
-          fname,
-          lname,
-          email,
-          phone,
-          dob,
-          caste,
-          quota,
-          percentile,
-          cetID,
-          branch,
+      const student = Student.create({
+        fname,
+        lname,
+        email,
+        phone,
+        dob,
+        caste,
+        quota,
+        percentile,
+        cetID,
+        branch,
+      })
+        .then((student) => {
+          if (student) {
+            res.status(200).json({
+              id: student._id,
+              fname: student.fname,
+              lname: student.lname,
+              email: student.email,
+              phone: student.phone,
+              percentile: student.percentile,
+              cetID: student.cetID,
+              quota: student.quota,
+              branch: student.branch,
+              caste: student.caste,
+              isAdmin: student.isAdmin,
+              paymentDone: student.paymentDone,
+            });
+          }
         })
-          .then((student) => {
-            if (student) {
-              res.status(200).json({
-                id: student._id,
-                fname: student.fname,
-                lname: student.lname,
-                email: student.email,
-                phone: student.phone,
-                percentile: student.percentile,
-                cetID: student.cetID,
-                quota: student.quota,
-                branch: student.branch,
-                caste: student.caste,
-                isAdmin: student.isAdmin,
-                paymentDone: student.paymentDone,
-              });
-            }
-          })
-          .catch((error) => {
-            res.status(400);
-            throw new Error(error);
-          });
-      }
+        .catch((error) => {
+          res.status(400);
+          throw new Error(error);
+        });
     }
   }
 });
@@ -103,4 +96,22 @@ const checkstatus = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registration, checkstatus };
+const getMerit = asyncHandler(async (req, res) => {
+  const { branch } = req.body;
+  if (!branch) {
+    res.status(400);
+    throw new Error("Please Select Branch");
+  } else {
+    const data = await Student.find({ branch })
+      .sort({ percentile: -1 })
+      .then((data) => {
+        res.status(200).json(data);
+      })
+      .catch((err) => {
+        res.status(400);
+        throw new Error(err);
+      });
+  }
+});
+
+module.exports = { registration, checkstatus, getMerit };

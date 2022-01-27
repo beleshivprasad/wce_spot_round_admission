@@ -52,6 +52,9 @@ const Header = () => {
                     <Link to="/vacancy/show">Check for Vacant Seats</Link>
                   </Nav.Link>
                   <Nav.Link>
+                    <Link to="/merit">Merit List </Link>
+                  </Nav.Link>
+                  <Nav.Link>
                     <Link to="/instructions">Instructions and Schedule</Link>
                   </Nav.Link>
                   <Nav.Link>
@@ -66,7 +69,10 @@ const Header = () => {
                     <Link to="/">Home</Link>
                   </Nav.Link>
                   <Nav.Link>
-                    <Link to="/studentist">Registered Student</Link>
+                    <Link to="/studentlist">Registered Student</Link>
+                  </Nav.Link>
+                  <Nav.Link>
+                    <Link to="/allotment">Manage Student Allotment</Link>
                   </Nav.Link>
                   <Nav.Link>
                     <Link to="/vacancy/show">Check Vacancy</Link>
@@ -74,6 +80,10 @@ const Header = () => {
                   <Nav.Link>
                     <Link to="/vacancy/update">Update Vacancy</Link>
                   </Nav.Link>
+                  <Nav.Link>
+                    <Link to="/displaymerit">Display Merit List</Link>
+                  </Nav.Link>
+
                   <Nav.Link>
                     <Link to="/instructions">Instructions and Schedule</Link>
                   </Nav.Link>
