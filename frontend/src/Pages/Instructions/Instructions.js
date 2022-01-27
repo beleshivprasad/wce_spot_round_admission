@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Table } from "react-bootstrap";
 import MainScreen from "../../Components/MainScreen";
-import "./Instruction.css";
 
 const Instructions = () => {
   return (
@@ -43,15 +42,14 @@ const Instructions = () => {
               Additional Spot round are given below.
               <br />
               <br></br>
-              <Table className="table" striped bordered hover variant="dark">
-                <thead>
-                  <tr>
-                    <th>Sr. No.</th>
-                    <th>Activity</th>
-                    <th>Time</th>
-                  </tr>
-                </thead>
+              <Table className="instruct" striped bordered hover variant="dark">
+                <thead></thead>
                 <tbody>
+                  <tr className="tr">
+                    <td>Sr. No.</td>
+                    <td>Activity</td>
+                    <td>Time</td>
+                  </tr>
                   <tr>
                     <td>1</td>
                     <td>

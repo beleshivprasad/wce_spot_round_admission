@@ -9,6 +9,8 @@ const StudentList = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [studentData, setStudentData] = useState([]);
+  const [admin, setAdmin] = useState(localStorage.getItem("isAdmin"));
+
   async function getStudent() {
     try {
       const config = {

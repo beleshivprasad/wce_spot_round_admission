@@ -41,41 +41,42 @@ const registration = asyncHandler(async (req, res) => {
       if (studentExist.length !== 0) {
         res.status(400);
         throw new Error("Student Already Registered");
-      }
-      const student = Student.create({
-        fname,
-        lname,
-        email,
-        phone,
-        dob,
-        caste,
-        quota,
-        percentile,
-        cetID,
-        branch,
-      })
-        .then((student) => {
-          if (student) {
-            res.status(200).json({
-              id: student._id,
-              fname: student.fname,
-              lname: student.lname,
-              email: student.email,
-              phone: student.phone,
-              percentile: student.percentile,
-              cetID: student.cetID,
-              quota: student.quota,
-              branch: student.branch,
-              caste: student.caste,
-              isAdmin: student.isAdmin,
-              paymentDone: student.paymentDone,
-            });
-          }
+      } else {
+        const student = Student.create({
+          fname,
+          lname,
+          email,
+          phone,
+          dob,
+          caste,
+          quota,
+          percentile,
+          cetID,
+          branch,
         })
-        .catch((error) => {
-          res.status(400);
-          throw new Error(error);
-        });
+          .then((student) => {
+            if (student) {
+              res.status(200).json({
+                id: student._id,
+                fname: student.fname,
+                lname: student.lname,
+                email: student.email,
+                phone: student.phone,
+                percentile: student.percentile,
+                cetID: student.cetID,
+                quota: student.quota,
+                branch: student.branch,
+                caste: student.caste,
+                isAdmin: student.isAdmin,
+                paymentDone: student.paymentDone,
+              });
+            }
+          })
+          .catch((error) => {
+            res.status(400);
+            throw new Error(error);
+          });
+      }
     }
   }
 });

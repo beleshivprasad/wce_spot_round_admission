@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, Row } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import MainScreen from "../../Components/MainScreen";
 import ErrorMessage from "../../Components/ErrorMessage";
 import SuccessMessage from "../../Components/SuccessMessage";
@@ -9,7 +9,6 @@ import axios from "axios";
 const CheckVacancy = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [vacancy, setVacancy] = useState({});
   const getData = async () => {
     try {
@@ -39,9 +38,6 @@ const CheckVacancy = () => {
     >
       <Container>
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-        {success && (
-          <SuccessMessage variant="success">{success}</SuccessMessage>
-        )}
         {loading && <Loading></Loading>}
         <Button
           style={{ margin: "10px" }}

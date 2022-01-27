@@ -35,12 +35,18 @@
 }
 tr {
   padding: 10px;
+  width: 100%;
 }
-td,th{
+td,
+th {
   border: 1px solid black;
   text-align: center;
   padding: 10px;
 }
+marquee {
+  color: red;
+}
+
 @media only screen and (min-width: 1200px) {
 }
 

@@ -1,0 +1,10 @@
+//admin 1
+    //same credentials
+    //display / changes regarding vacants seats
+//admin 2
+    //same 
+    //same rights
+    //changes regarding students allotement 
+//registration no bound
+//instructions dynamic table
+//

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NewRegister.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import axios from "axios";
@@ -19,24 +19,15 @@ const NewRegister = () => {
   const [percentile, setPercentile] = useState("");
   const [cetID, setCetID] = useState("");
   const [dob, setDob] = useState("");
+  const [start, setStart] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log({
-      fname,
-      lname,
-      email,
-      phone,
-      dob,
-      caste,
-      quota,
-      branch,
-      cetID,
-      percentile,
-    });
+    let obj = new Date(2018, 3, 2, 12, 23);
+    console.log(obj.toLocaleDateString(),obj.toLocaleTimeString());
     try {
       const config = {
         headers: {
@@ -63,13 +54,13 @@ const NewRegister = () => {
         config
       );
       if (data) {
+        console.log(data);
         setSuccess("Registered Successfully");
       }
       setTimeout(() => {
         setSuccess(false);
       }, 3000);
       setLoading(false);
-      console.log(data);
     } catch (error) {
       setError(error.response.data.message);
       setLoading(false);
@@ -80,7 +71,16 @@ const NewRegister = () => {
   };
 
   return (
-    <MainScreen title={"Register Student"}>
+    <MainScreen title={"Registration"}>
+      <Container>
+        <Row>
+          <marquee>
+            {start}
+            Registration Window is Open on August 25 from 8 a.m. to 12 p.m.
+            Please Complete the registration within time
+          </marquee>
+        </Row>
+      </Container>
       <br />
       <hr />
       <br />
