@@ -51,7 +51,7 @@ const CheckVacancy = () => {
         </Button>
       </Container>
       <div className="table">
-        <table>
+         <table className='vacTable'>
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -205,7 +205,7 @@ const CheckVacancy = () => {
           </tr>
         </table>
         <br></br>
-        <table>
+         <table className='vacTable'>
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -359,7 +359,7 @@ const CheckVacancy = () => {
           </tr>
         </table>
         <br></br>
-        <table>
+         <table className='vacTable'>
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -513,7 +513,7 @@ const CheckVacancy = () => {
           </tr>
         </table>
         <br></br>
-        <table>
+         <table className='vacTable'>
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -668,7 +668,7 @@ const CheckVacancy = () => {
           </tr>
         </table>
         <br></br>
-        <table>
+         <table className='vacTable'>
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -822,7 +822,7 @@ const CheckVacancy = () => {
           </tr>
         </table>
         <br></br>
-        <table>
+         <table className='vacTable'>
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>

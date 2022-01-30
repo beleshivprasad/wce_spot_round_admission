@@ -25,7 +25,7 @@ const ManageAllotment = () => {
         },
       };
       setLoading(true);
-      const { data } = await axios.post("/student/allot", config);
+      const { data } = await axios.post("/admin/allot", config);
 
       setStudentData(data);
       if (data) {
@@ -107,12 +107,8 @@ const ManageAllotment = () => {
           <Col>
             <Button
               type="button"
-              onClick={() => {
-                allotSeat();
-                setSuccess("Merit List Published");
-                setTimeout(() => {
-                  setSuccess(false);
-                }, 3000);
+              onClick={(e) => {
+                allotSeat(e);
               }}
             >
               Start Allocation

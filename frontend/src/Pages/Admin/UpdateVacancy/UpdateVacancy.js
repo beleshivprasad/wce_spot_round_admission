@@ -36,7 +36,13 @@ const UpdateVacancy = () => {
         config
       );
       setLoading(false);
-      console.log(data);
+      console.log(data[`${quota}_${caste}_${branch}`]);
+      if (data) {
+        setSuccess("Updated Successfully");
+        setTimeout(() => {
+          setSuccess(false);
+        }, 3000);
+      }
     } catch (error) {
       setError(error.response.data.message);
       setLoading(false);

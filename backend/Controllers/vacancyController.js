@@ -22,8 +22,6 @@ const updateVacancy = asyncHandler(async (req, res) => {
         });
     } else {
       let str = `${quota}_${caste}_${branch}`;
-      let update = { str: seat };
-      console.log(str);
       const { data } = await Vacancy.findOneAndUpdate(
         { _id: "61e5a684f8e1199a5b608433" },
         {

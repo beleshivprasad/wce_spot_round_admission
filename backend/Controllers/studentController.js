@@ -114,4 +114,5 @@ const getMerit = asyncHandler(async (req, res) => {
   }
 });
 
+
 module.exports = { registration, checkstatus, getMerit };
