@@ -51,7 +51,7 @@ const CheckVacancy = () => {
         </Button>
       </Container>
       <div className="table">
-         <table className='vacTable'>
+        <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -205,7 +205,7 @@ const CheckVacancy = () => {
           </tr>
         </table>
         <br></br>
-         <table className='vacTable'>
+        <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -359,7 +359,7 @@ const CheckVacancy = () => {
           </tr>
         </table>
         <br></br>
-         <table className='vacTable'>
+        <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -513,7 +513,7 @@ const CheckVacancy = () => {
           </tr>
         </table>
         <br></br>
-         <table className='vacTable'>
+        <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -645,7 +645,6 @@ const CheckVacancy = () => {
             <td>{data.def_sebc_electrical}</td>
             <td></td>
             <td>
-              {" "}
               {parseInt(data.pw_open_electrical) +
                 parseInt(data.def_open_electrical) +
                 parseInt(data.pw_sc_electrical) +
@@ -668,7 +667,7 @@ const CheckVacancy = () => {
           </tr>
         </table>
         <br></br>
-         <table className='vacTable'>
+        <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -822,7 +821,7 @@ const CheckVacancy = () => {
           </tr>
         </table>
         <br></br>
-         <table className='vacTable'>
+        <table className="vacTable">
           <tr>
             <th>CATEGORY</th>
             <th colspan="2">OPEN</th>
@@ -954,7 +953,6 @@ const CheckVacancy = () => {
             <td>{data.def_sebc_mechanical} </td>
             <td></td>
             <td>
-              {" "}
               {parseInt(data.pw_open_mechanical) +
                 parseInt(data.def_open_mechanical) +
                 parseInt(data.pw_sc_mechanical) +

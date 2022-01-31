@@ -27,9 +27,8 @@ const ManageAllotment = () => {
       setLoading(true);
       const { data } = await axios.post("/admin/allot", config);
 
-      setStudentData(data);
       if (data) {
-        setSuccess("Allotment Procedure Initiated");
+        setSuccess("Allotment Procedure Completed");
         setTimeout(() => {
           setSuccess(false);
         }, 2000);

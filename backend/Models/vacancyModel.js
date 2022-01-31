@@ -894,6 +894,31 @@ const vacancySchema = new mongoose.Schema(
       type: String,
       default: "0",
     },
+    cse: {
+      type: String,
+      default: "0",
+    },
+    it: {
+      type: String,
+      default: "0",
+    },
+    civil: {
+      type: String,
+      default: "0",
+    },
+    electrical: {
+      type: String,
+      default: "0",
+    },
+    electronics: {
+      type: String,
+      default: "0",
+    },
+    mechanical: {
+      type: String,
+      default: "0",
+    },
+
     start: {
       type: String,
       default: "",
