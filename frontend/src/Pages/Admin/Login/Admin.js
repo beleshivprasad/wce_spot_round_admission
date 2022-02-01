@@ -31,13 +31,17 @@ const Admin = () => {
         config
       );
       setLoading(false);
-      localStorage.setItem("isAdmin", data.isAdmin);
       console.log(data);
+      localStorage.setItem("isAdmin", data.isAdmin);
+      localStorage.setItem("admin", JSON.stringify(data));
       history.push("/");
       window.location.reload(true);
     } catch (error) {
       setError(error.response.data.message);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+        setError(false);
+      }, 3000);
     }
   };
   return (

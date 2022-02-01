@@ -14,6 +14,7 @@ import UpdateVacancy from "./Pages/Admin/UpdateVacancy/UpdateVacancy";
 import MeritList from "./Pages/MeritList/MeritList";
 import DisplayMerit from "./Pages/Admin/DisplayMerit/DisplayMerit";
 import ManageAllotment from "./Pages/Admin/Allotment/ManageAllotment";
+import AddAdmin from "./Pages/Admin/addAdmin/AddAdmin";
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
         </Route>
         <Route path="/status" exact>
           <CheckStatus></CheckStatus>
+        </Route>
+        <Route path="/admin/add" exact>
+          <AddAdmin></AddAdmin>
         </Route>
         <Route path="/vacancy/show" exact>
           <CheckVacancy></CheckVacancy>

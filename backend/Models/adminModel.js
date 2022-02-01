@@ -1,9 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const adminSchema = new mongoose.Schema(
   {
     username: {
       type: String,
+      unique: true,
       required: true,
     },
     password: {
@@ -12,7 +13,6 @@ const adminSchema = new mongoose.Schema(
     },
     isAdmin: {
       type: Boolean,
-      required: true,
       default: true,
     },
   },

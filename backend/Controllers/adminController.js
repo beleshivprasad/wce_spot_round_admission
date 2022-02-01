@@ -4,19 +4,41 @@ const Student = require("../Models/studentModel");
 const Vacancy = require("../Models/vacancyModel");
 const bcrypt = require("bcryptjs");
 
+const generateToken = require("../auth/generateToken");
+const encrypt = require("../utils/encrypt");
+const decrypt = require("../utils/decrypt");
+
 const authAdmin = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     res.status(400);
     throw new Error("Please Fill All the Fields");
   } else {
-    const admin = await Admin.findOne({ username }).then((admin) => {
-      if (password !== admin.password) {
+    const adminData = await Admin.find({ username })
+      .then((data) => {
+        const admin = data[0];
+        if (admin.length === 0) {
+          res.status(400);
+          throw new Error("No Admin Found");
+        } else {
+          decrypt(password, admin.password).then(async (isMatch) => {
+            if (isMatch) {
+              res.status(200).json({
+                username: admin.username,
+                isAdmin: admin.isAdmin,
+                accessToken: await generateToken(admin.username),
+              });
+            } else {
+              res.status(400);
+              throw new Error("Wrong Password");
+            }
+          });
+        }
+      })
+      .catch((error) => {
         res.status(400);
-        throw new Error("Wrong Password");
-      }
-      res.status(200).json(admin);
-    });
+        throw new Error(error);
+      });
   }
 });
 
@@ -36,19 +58,20 @@ const fetchStudent = asyncHandler(async (req, res) => {
       .catch((error) => {
         throw new Error(error);
       });
+  } else {
+    const { student } = await Student.find({})
+      .then((student) => {
+        if (student) {
+          res.status(200).json(student);
+        } else {
+          res.status(400);
+          throw new Error("No Student has Registered Yet");
+        }
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
   }
-  const { student } = await Student.find({})
-    .then((student) => {
-      if (student) {
-        res.status(200).json(student);
-      } else {
-        res.status(400);
-        throw new Error("No Student has Registered Yet");
-      }
-    })
-    .catch((error) => {
-      throw new Error(error);
-    });
 });
 
 const allotSeat = asyncHandler(async (req, res) => {
@@ -337,7 +360,6 @@ const allotSeat = asyncHandler(async (req, res) => {
     }
   }
   // for students whose category have no seat but the branch has vacant seats for other category
-
   for (let b of branch) {
     const studentData = await Student.find({ branch: b, alloted: false }).sort({
       percentile: -1,
@@ -411,4 +433,33 @@ const allotSeat = asyncHandler(async (req, res) => {
   res.status(200).json({ status: true });
 });
 
-module.exports = { authAdmin, fetchStudent, allotSeat };
+const addAdmin = asyncHandler(async (req, res) => {
+  const { username, password, cnfpassword } = req.body;
+  if (!username || !password || !cnfpassword) {
+    res.status(200);
+    throw new Error("Please Fill All Fields");
+  } else if (password !== cnfpassword) {
+    res.status(200);
+    throw new Error("Password Dont Match");
+  } else {
+    const adminData = await Admin.find({ username }).then((data) => {
+      if (data.length !== 0) {
+        res.status(400);
+        throw new Error(`  Already Exists`);
+      }
+    });
+    const admin = await Admin.create({
+      username,
+      password: await encrypt(password),
+    })
+      .then((admin) => {
+        res.status(201).json(admin);
+      })
+      .catch((error) => {
+        res.status(400);
+        throw new Error(error);
+      });
+  }
+});
+
+module.exports = { authAdmin, fetchStudent, allotSeat, addAdmin };

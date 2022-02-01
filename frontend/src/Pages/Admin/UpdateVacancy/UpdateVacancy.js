@@ -8,9 +8,9 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 const UpdateVacancy = () => {
-  const [admin, setAdmin] = useState(localStorage.getItem("isAdmin"));
+  const [admin, setAdmin] = useState(JSON.parse(localStorage.getItem("admin")));
   const history = useHistory();
-  admin !== "true" ? history.push("/") : history.push("/vacancy/update");
+  !admin ? history.push("/admin") : history.push("/vacancy/update");
   const [branch, setBranch] = useState("");
   const [seat, setSeat] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,6 +25,7 @@ const UpdateVacancy = () => {
       const config = {
         headers: {
           "Content-type": "application/json",
+          Authorization: `Bearer ${admin.accessToken}`,
         },
       };
 

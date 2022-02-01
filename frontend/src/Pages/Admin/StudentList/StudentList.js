@@ -7,9 +7,9 @@ import { Button, Form, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 const StudentList = () => {
-  const [admin, setAdmin] = useState(localStorage.getItem("isAdmin"));
+  const [admin, setAdmin] = useState(JSON.parse(localStorage.getItem("admin")));
   const history = useHistory();
-  admin !== "true" ? history.push("/") : history.push("/studentlist");
+  !admin ? history.push("/admin") : history.push("/studentlist");
   const [branch, setBranch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -21,6 +21,7 @@ const StudentList = () => {
       const config = {
         headers: {
           "Content-type": "application/json",
+          Authorization: `Bearer ${admin.accessToken}`,
         },
       };
       setLoading(true);

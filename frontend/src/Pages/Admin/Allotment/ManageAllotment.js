@@ -7,9 +7,9 @@ import ErrorMessage from "../../../Components/ErrorMessage";
 import SuccessMessage from "../../../Components/SuccessMessage";
 import { useHistory } from "react-router-dom";
 const ManageAllotment = () => {
-  const [admin, setAdmin] = useState(localStorage.getItem("isAdmin"));
+  const [admin, setAdmin] = useState(JSON.parse(localStorage.getItem("admin")));
   const history = useHistory();
-  admin !== "true" ? history.push("/") : history.push("/allotment");
+  !admin ? history.push("/admin") : history.push("/allotment");
   const [studentData, setStudentData] = useState([]);
   const [branch, setBranch] = useState("");
   const [error, setError] = useState(false);
@@ -22,6 +22,7 @@ const ManageAllotment = () => {
       const config = {
         headers: {
           "Content-type": "application/json",
+          Authorization: `Bearer ${admin.accessToken}`,
         },
       };
       setLoading(true);

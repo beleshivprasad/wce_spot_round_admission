@@ -11,6 +11,8 @@ import { Link, useHistory } from "react-router-dom";
 
 const Header = () => {
   const [isLogged, setIsLogged] = useState(localStorage.getItem("isAdmin"));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("admin")));
+
   const history = useHistory();
   return (
     <Navbar bg="secondary" expand={false} style={{ opacity: "1" }}>
@@ -64,48 +66,146 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link>
-                    <Link to="/">Home</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/studentlist">Registered Student</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/allotment">Manage Student Allotment</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/vacancy/show">Check Vacancy</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/vacancy/update">Update Vacancy</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/displaymerit">Display Merit List</Link>
-                  </Nav.Link>
+                {user.username === "admin" ? (
+                  <>
+                    {" "}
+                    <Nav className="justify-content-end flex-grow-1 pe-3">
+                      <Nav.Link>
+                        <Link to="/">Home</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/studentlist">Registered Student</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/allotment">Manage Student Allotment</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/vacancy/show">Check Vacancy</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/vacancy/update">Update Vacancy</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/displaymerit">Display Merit List</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/admin/add">Add Admin</Link>
+                      </Nav.Link>
 
-                  <Nav.Link>
-                    <Link to="/instructions">Instructions and Schedule</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="/contact">Contact Us</Link>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <Link to="">
-                      <Button
-                        type="button"
-                        variant="dark"
-                        onClick={() => {
-                          localStorage.removeItem("isAdmin");
-                          history.push("/");
-                          window.location.reload(true);
-                        }}
-                      >
-                        Logout
-                      </Button>
-                    </Link>
-                  </Nav.Link>
-                </Nav>
+                      <Nav.Link>
+                        <Link to="/instructions">
+                          Instructions and Schedule
+                        </Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="">
+                          <Button
+                            type="button"
+                            variant="dark"
+                            onClick={() => {
+                              localStorage.removeItem("isAdmin");
+                              localStorage.removeItem("admin");
+                              history.push("/");
+                              window.location.reload(true);
+                            }}
+                          >
+                            Logout
+                          </Button>
+                        </Link>
+                      </Nav.Link>
+                    </Nav>
+                  </>
+                ) : (
+                  <></>
+                )}
+                {user.username === "spot_admin" ? (
+                  <>
+                    <Nav className="justify-content-end flex-grow-1 pe-3">
+                      <Nav.Link>
+                        <Link to="/">Home</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/studentlist">Registered Student</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/displaymerit">Display Merit List</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/vacancy/show">Check Vacancy</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/vacancy/update">Update Vacancy</Link>
+                      </Nav.Link>
+
+                      <Nav.Link>
+                        <Link to="/instructions">
+                          Instructions and Schedule
+                        </Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="">
+                          <Button
+                            type="button"
+                            variant="dark"
+                            onClick={() => {
+                              localStorage.removeItem("isAdmin");
+                              localStorage.removeItem("admin");
+                              history.push("/");
+                              window.location.reload(true);
+                            }}
+                          >
+                            Logout
+                          </Button>
+                        </Link>
+                      </Nav.Link>
+                    </Nav>
+                  </>
+                ) : (
+                  <></>
+                )}
+                {user.username === "college_admin" ? (
+                  <>
+                    <Nav className="justify-content-end flex-grow-1 pe-3">
+                      <Nav.Link>
+                        <Link to="/">Home</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/studentlist">Registered Student</Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="/allotment">Manage Student Allotment</Link>
+                      </Nav.Link>
+
+                      <Nav.Link>
+                        <Link to="/displaymerit">Display Merit List</Link>
+                      </Nav.Link>
+
+                      <Nav.Link>
+                        <Link to="/instructions">
+                          Instructions and Schedule
+                        </Link>
+                      </Nav.Link>
+                      <Nav.Link>
+                        <Link to="">
+                          <Button
+                            type="button"
+                            variant="dark"
+                            onClick={() => {
+                              localStorage.removeItem("isAdmin");
+                              localStorage.removeItem("admin");
+                              history.push("/");
+                              window.location.reload(true);
+                            }}
+                          >
+                            Logout
+                          </Button>
+                        </Link>
+                      </Nav.Link>
+                    </Nav>
+                  </>
+                ) : (
+                  <></>
+                )}
               </>
             )}
           </Offcanvas.Body>
