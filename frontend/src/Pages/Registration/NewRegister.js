@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./NewRegister.css";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import axios from "axios";
@@ -19,7 +19,6 @@ const NewRegister = () => {
   const [percentile, setPercentile] = useState("");
   const [cetID, setCetID] = useState("");
   const [dob, setDob] = useState("");
-  const [start, setStart] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -75,7 +74,6 @@ const NewRegister = () => {
       <Container>
         <Row>
           <marquee>
-            {start}
             Registration Window is Open on August 25 from 8 a.m. to 12 p.m.
             Please Complete the registration within time
           </marquee>

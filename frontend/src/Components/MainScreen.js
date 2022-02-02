@@ -10,7 +10,7 @@ const MainScreen = ({ title, student, children }) => {
           <div className="page">
             {title && (
               <>
-                <h1 className="heading">
+                <h1 className="heading" style={{ textAlign: "center" }}>
                   {title} {student}
                 </h1>
               </>

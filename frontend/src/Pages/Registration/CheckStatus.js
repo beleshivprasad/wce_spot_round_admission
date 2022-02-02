@@ -16,7 +16,8 @@ const CheckStatus = () => {
   const [branch, setBranch] = useState("");
   const [alloted, setAlloted] = useState(false);
   const [percentile, setPercentile] = useState("");
-  const [reg, setReg] = useState(false);
+  const [data, setData] = useState(JSON.parse(localStorage.getItem("student")));
+  const [reg, setReg] = useState(localStorage.getItem("show"));
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -24,11 +25,6 @@ const CheckStatus = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // console.log({
-    //   fname,
-    //   lname,
-    //   cetID,
-    // });
     try {
       const config = {
         headers: {
@@ -43,6 +39,7 @@ const CheckStatus = () => {
         { fname, lname, cetID },
         config
       );
+      localStorage.setItem("student", JSON.stringify(data));
 
       console.log(data, payment);
       setPercentile(data.percentile);
@@ -50,14 +47,18 @@ const CheckStatus = () => {
       setPayment(data.paymentDone);
       setAlloted(data.alloted);
 
+      // setReg(true);
+      localStorage.setItem("show", true);
+      setReg(localStorage.getItem("show"));
+      setTimeout(() => {
+        localStorage.setItem("show", false);
+        setReg(localStorage.getItem("show"));
+      }, 1000 * 60 * 10);
       if (!data.paymentDone) {
-        setReg(true);
         setError("Please Complete the Payment");
         setTimeout(() => {
           setError(false);
         }, 3000);
-      } else {
-        setReg(true);
       }
 
       setTimeout(() => {
@@ -81,35 +82,65 @@ const CheckStatus = () => {
           <SuccessMessage variant="success">{success}</SuccessMessage>
         )}
         {loading && <Loading></Loading>}
-        {reg ? (
-          <table className="status">
-            <thead>
-              <tr>
-                <th>CET Application ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Percentile</th>
-                <th>Requested Branch</th>
-                <th>Payment</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{cetID}</td>
-                <td>{fname}</td>
-                <td>{lname}</td>
-                <td>{percentile}</td>
-                <td>{branch}</td>
-                <td>{payment ? "Done" : "Please Complete Payment"}</td>
-                <td>
-                  {alloted
-                    ? "Congratulations Your Seat is Confirmed "
-                    : "No Seat Alloted"}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        {reg === "true" ? (
+          <>
+            <table className="status">
+              <thead>
+                <tr>
+                  <th>CET Application ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Percentile</th>
+                  <th>Requested Branch</th>
+                  <th>Status</th>
+                  <th>Payment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{data.cetID}</td>
+                  <td>{data.fname}</td>
+                  <td>{data.lname}</td>
+                  <td>{data.percentile}</td>
+                  <td>{data.branch}</td>
+                  <td>
+                    {alloted
+                      ? "Congratulations Your Seat is Confirmed "
+                      : "No Seat Alloted"}
+                  </td>
+                  <td>
+                    {payment ? (
+                      "Done"
+                    ) : (
+                      <>
+                        <Button
+                          type="button"
+                          onClick={(e) => {
+                            history.push("/payment");
+                          }}
+                        >
+                          Complete Payment
+                        </Button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <hr />
+            <br />
+            <Button
+              style={{ float: "right" }}
+              type="button"
+              onClick={(e) => {
+                localStorage.setItem("show", false);
+                setReg(localStorage.getItem("show"));
+              }}
+            >
+              Back
+            </Button>
+          </>
         ) : (
           <>
             <Form onSubmit={submitHandler}>

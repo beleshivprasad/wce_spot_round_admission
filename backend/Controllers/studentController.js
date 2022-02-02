@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const Student = require("../Models/studentModel");
 const Vacancy = require("../Models/vacancyModel");
+const Razorpay = require("razorpay");
+const shortid = require("shortid");
 
 const registration = asyncHandler(async (req, res) => {
   const {
@@ -114,5 +116,29 @@ const getMerit = asyncHandler(async (req, res) => {
   }
 });
 
+const razorpay = asyncHandler(async (req, res) => {
+  const amount = 1000 * 100;
+  const currency = "INR";
+  const payment_capture = 1;
+  const receipt = await shortid.generate();
+  const instance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY,
+    key_secret: process.env.RAZORPAY_SECRET,
+  });
+  const response = await instance.orders
+    .create({
+      amount,
+      currency,
+      receipt,
+      payment_capture,
+    })
+    .then((data) => {
+      res.status(201).json(data);
+    })
+    .catch((error) => {
+      res.status(500);
+      throw new Error(error);
+    });
+});
 
-module.exports = { registration, checkstatus, getMerit };
+module.exports = { registration, checkstatus, getMerit, razorpay };
