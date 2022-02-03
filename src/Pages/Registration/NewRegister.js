@@ -26,7 +26,7 @@ const NewRegister = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     let obj = new Date(2018, 3, 2, 12, 23);
-    console.log(obj.toLocaleDateString(),obj.toLocaleTimeString());
+    console.log(obj.toLocaleDateString(), obj.toLocaleTimeString());
     try {
       const config = {
         headers: {
@@ -121,11 +121,11 @@ const NewRegister = () => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Phone</Form.Label>
             <Form.Control
-              type="number"
+              type="text"
               placeholder="Enter Phone Number"
               value={phone}
-              maxLength={10}
               minLength={10}
+              maxLength={10}
               onChange={(e) => setPhone(e.target.value)}
             />
           </Form.Group>

@@ -9,14 +9,14 @@ import SuccessMessage from "../../Components/SuccessMessage";
 import axios from "axios";
 
 const CheckStatus = () => {
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [cetID, setCetID] = useState("");
-  const [payment, setPayment] = useState(false);
-  const [branch, setBranch] = useState("");
-  const [alloted, setAlloted] = useState(false);
-  const [percentile, setPercentile] = useState("");
   const [data, setData] = useState(JSON.parse(localStorage.getItem("student")));
+  const [payment, setPayment] = useState(data?.paymentDone);
+  const [alloted, setAlloted] = useState(data?.alloted);
+  const [fname, setFname] = useState(data?.fname);
+  const [lname, setLname] = useState(data?.lname);
+  const [cetID, setCetID] = useState(data?.cetID);
+  const [branch, setBranch] = useState(data?.branch);
+  const [percentile, setPercentile] = useState(data?.percentile);
   const [reg, setReg] = useState(localStorage.getItem("show"));
   const history = useHistory();
   const [loading, setLoading] = useState(false);
@@ -39,28 +39,31 @@ const CheckStatus = () => {
         { fname, lname, cetID },
         config
       );
-      localStorage.setItem("student", JSON.stringify(data));
 
-      console.log(data, payment);
+      //saving data locally
+      localStorage.setItem("student", JSON.stringify(data));
+      setData(data);
+      setCetID(data.cetID);
+      setFname(data.fname);
+      setLname(data.lname);
       setPercentile(data.percentile);
       setBranch(data.branch);
       setPayment(data.paymentDone);
       setAlloted(data.alloted);
 
-      // setReg(true);
       localStorage.setItem("show", true);
       setReg(localStorage.getItem("show"));
       setTimeout(() => {
         localStorage.setItem("show", false);
         setReg(localStorage.getItem("show"));
       }, 1000 * 60 * 10);
+
       if (!data.paymentDone) {
         setError("Please Complete the Payment");
         setTimeout(() => {
           setError(false);
         }, 3000);
       }
-
       setTimeout(() => {
         setSuccess(false);
       }, 5000);
@@ -98,19 +101,27 @@ const CheckStatus = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>{data.cetID}</td>
-                  <td>{data.fname}</td>
-                  <td>{data.lname}</td>
-                  <td>{data.percentile}</td>
-                  <td>{data.branch}</td>
+                  <td>{cetID}</td>
+                  <td>{fname}</td>
+                  <td>{lname}</td>
+                  <td>{percentile}</td>
+                  <td>{branch}</td>
                   <td>
                     {alloted
                       ? "Congratulations Your Seat is Confirmed "
                       : "No Seat Alloted"}
                   </td>
                   <td>
-                    {payment ? (
-                      "Done"
+                    {payment === true ? (
+                      <Button
+                        type="button"
+                        variant="success"
+                        onClick={(e) => {
+                          history.push("/payment");
+                        }}
+                      >
+                        Check Status
+                      </Button>
                     ) : (
                       <>
                         <Button
@@ -135,6 +146,7 @@ const CheckStatus = () => {
               type="button"
               onClick={(e) => {
                 localStorage.setItem("show", false);
+                localStorage.removeItem("student");
                 setReg(localStorage.getItem("show"));
               }}
             >
@@ -179,7 +191,7 @@ const CheckStatus = () => {
             <br />
             <Row>
               <Col>
-                Not Registered ?{" "}
+                Not Registered ?
                 <Link to="/register">Register Yourself first.</Link>
               </Col>
             </Row>

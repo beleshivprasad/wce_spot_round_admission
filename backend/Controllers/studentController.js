@@ -4,6 +4,11 @@ const Vacancy = require("../Models/vacancyModel");
 const Razorpay = require("razorpay");
 const shortid = require("shortid");
 
+const instance = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY,
+  key_secret: process.env.RAZORPAY_SECRET,
+});
+
 const registration = asyncHandler(async (req, res) => {
   const {
     fname,
@@ -116,15 +121,11 @@ const getMerit = asyncHandler(async (req, res) => {
   }
 });
 
-const razorpay = asyncHandler(async (req, res) => {
+const createOrder = asyncHandler(async (req, res) => {
   const amount = 1000 * 100;
   const currency = "INR";
   const payment_capture = 1;
   const receipt = await shortid.generate();
-  const instance = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY,
-    key_secret: process.env.RAZORPAY_SECRET,
-  });
   const response = await instance.orders
     .create({
       amount,
@@ -133,7 +134,11 @@ const razorpay = asyncHandler(async (req, res) => {
       payment_capture,
     })
     .then((data) => {
-      res.status(201).json(data);
+      res.status(201).json({
+        id: data.id,
+        amount: data.amount,
+        receipt: data.receipt,
+      });
     })
     .catch((error) => {
       res.status(500);
@@ -141,4 +146,46 @@ const razorpay = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports = { registration, checkstatus, getMerit, razorpay };
+const fetchPayment = asyncHandler(async (req, res) => {
+  const { orderId } = req.body;
+  instance.orders
+    .fetchPayments(orderId)
+    .then((data) => {
+      const { items } = data;
+      res.status(200).json(items);
+    })
+    .catch((error) => {
+      res.status(400);
+      throw new Error(error);
+    });
+});
+
+const updatePaymentInfo = asyncHandler(async (req, res) => {
+  const { fname, lname, cetID, paymentId } = req.body;
+  const data = await Student.updateOne(
+    { $and: [{ fname }, { lname }, { cetID }] },
+    { $set: { paymentId: paymentId, paymentDone: true } }
+  )
+    .then(async (data) => {
+      if (data) {
+        const student = await Student.findOne({
+          $and: [{ fname }, { lname }, { cetID }],
+        }).then((student) => {
+          res.status(200).json(student);
+        });
+      }
+    })
+    .catch((error) => {
+      res.status(400);
+      throw new Error(error);
+    });
+});
+
+module.exports = {
+  registration,
+  checkstatus,
+  getMerit,
+  createOrder,
+  fetchPayment,
+  updatePaymentInfo
+};

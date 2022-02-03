@@ -51,9 +51,9 @@ const studentSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+    paymentId: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }
