@@ -22,11 +22,12 @@ const ManageAllotment = () => {
       const config = {
         headers: {
           "Content-type": "application/json",
-          Authorization: `Bearer ${admin.accessToken}`,
+          authorization: `Bearer ${admin.accessToken}`,
         },
       };
+      console.log(config);
       setLoading(true);
-      const { data } = await axios.post("/admin/allot", config);
+      const { data } = await axios.post("/admin/allot", {}, config);
 
       if (data) {
         setSuccess("Allotment Procedure Completed");

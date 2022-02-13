@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Admin = require("../Models/adminModel");
 const Student = require("../Models/studentModel");
 const Vacancy = require("../Models/vacancyModel");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 
 const generateToken = require("../auth/generateToken");
 const encrypt = require("../utils/encrypt");
@@ -14,10 +14,10 @@ const authAdmin = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please Fill All the Fields");
   } else {
-    const adminData = await Admin.find({ username })
+    Admin.find({ username })
       .then((data) => {
         const admin = data[0];
-        if (data.length===0) {
+        if (data.length === 0) {
           res.status(400);
           throw new Error("No Admin Found");
         } else {
@@ -46,7 +46,7 @@ const authAdmin = asyncHandler(async (req, res) => {
 const fetchStudent = asyncHandler(async (req, res) => {
   const { branch } = req.body;
   if (branch) {
-    const std  = await Student.find({ branch })
+    Student.find({ branch })
       .sort({ percentile: -1 })
       .then((student) => {
         if (student) {
@@ -60,7 +60,7 @@ const fetchStudent = asyncHandler(async (req, res) => {
         throw new Error(error.message);
       });
   } else {
-    const { student } = await Student.find({})
+    Student.find({})
       .then((student) => {
         if (student) {
           res.status(200).json(student);
@@ -330,10 +330,7 @@ const allotSeat = asyncHandler(async (req, res) => {
         let str = `${student.quota}_${student.caste}_${student.branch}`;
         if (vacancyData[str] > 0 && student.paymentDone && !student.alloted) {
           console.log("Under Strict Allotment");
-          const allot = await Student.updateOne(
-            { _id: student.id },
-            { alloted: true }
-          );
+          await Student.updateOne({ _id: student.id }, { alloted: true });
           if (parseInt(vacancyData[str]) > 0) {
             newVac = parseInt(vacancyData[str]) - 1;
           } else {
@@ -344,13 +341,13 @@ const allotSeat = asyncHandler(async (req, res) => {
           } else {
             tot = 0;
           }
-          const vac = await Vacancy.updateOne(
+          await Vacancy.updateOne(
             { _id: "61f7bea19dda5bccf6aade77" },
             {
               $set: { [`${str}`]: newVac },
             }
           );
-          const totVac = await Vacancy.updateOne(
+          await Vacancy.updateOne(
             { _id: "61f7bea19dda5bccf6aade77" },
             {
               $set: { [`${student.branch}`]: tot },
@@ -399,10 +396,7 @@ const allotSeat = asyncHandler(async (req, res) => {
             if (parseInt(vacancyData[str]) > 0 && studData.length !== 0) {
               console.log(vacancyData[str], studData.length);
               // console.log(student, str, vacancyData[str]);
-              const allot = await Student.updateOne(
-                { _id: student.id },
-                { alloted: true }
-              );
+              await Student.updateOne({ _id: student.id }, { alloted: true });
               if (parseInt(vacancyData[str]) > 0) {
                 newVac = parseInt(vacancyData[str]) - 1;
               } else {
@@ -413,13 +407,13 @@ const allotSeat = asyncHandler(async (req, res) => {
               } else {
                 tot = 0;
               }
-              const vac = await Vacancy.updateOne(
+              await Vacancy.updateOne(
                 { _id: "61f7bea19dda5bccf6aade77" },
                 {
                   $set: { [`${str}`]: newVac },
                 }
               );
-              const totVac = await Vacancy.updateOne(
+              await Vacancy.updateOne(
                 { _id: "61f7bea19dda5bccf6aade77" },
                 {
                   $set: { [`${student.branch}`]: tot },
@@ -443,13 +437,13 @@ const addAdmin = asyncHandler(async (req, res) => {
     res.status(200);
     throw new Error("Password Dont Match");
   } else {
-    const adminData = await Admin.find({ username }).then((data) => {
+    await Admin.find({ username }).then((data) => {
       if (data.length !== 0) {
         res.status(400);
         throw new Error(`  Already Exists`);
       }
     });
-    const admin = await Admin.create({
+    await Admin.create({
       username,
       password: await encrypt(password),
     })

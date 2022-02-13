@@ -21,7 +21,7 @@ const StudentList = () => {
       const config = {
         headers: {
           "Content-type": "application/json",
-          Authorization: `Bearer ${admin.accessToken}`,
+          authorization: `Bearer ${admin.accessToken}`,
         },
       };
       setLoading(true);

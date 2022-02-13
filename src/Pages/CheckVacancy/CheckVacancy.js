@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import {  Container } from "react-bootstrap";
 import MainScreen from "../../Components/MainScreen";
 import ErrorMessage from "../../Components/ErrorMessage";
-import SuccessMessage from "../../Components/SuccessMessage";
+// import SuccessMessage from "../../Components/SuccessMessage";
 import Loading from "../../Components/Loading";
 import axios from "axios";
 
 const CheckVacancy = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [vacancy, setVacancy] = useState({});
+  // const [vacancy, setVacancy] = useState({});
   const [data, setData] = useState("");
   const getData = async () => {
     try {
