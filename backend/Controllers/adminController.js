@@ -17,7 +17,7 @@ const authAdmin = asyncHandler(async (req, res) => {
     const adminData = await Admin.find({ username })
       .then((data) => {
         const admin = data[0];
-        if (admin.length === 0) {
+        if (data.length===0) {
           res.status(400);
           throw new Error("No Admin Found");
         } else {
@@ -35,9 +35,10 @@ const authAdmin = asyncHandler(async (req, res) => {
           });
         }
       })
+
       .catch((error) => {
         res.status(400);
-        throw new Error(error);
+        throw new Error(error.message);
       });
   }
 });
@@ -45,7 +46,7 @@ const authAdmin = asyncHandler(async (req, res) => {
 const fetchStudent = asyncHandler(async (req, res) => {
   const { branch } = req.body;
   if (branch) {
-    const { student } = await Student.find({ branch })
+    const std  = await Student.find({ branch })
       .sort({ percentile: -1 })
       .then((student) => {
         if (student) {
@@ -56,7 +57,7 @@ const fetchStudent = asyncHandler(async (req, res) => {
         }
       })
       .catch((error) => {
-        throw new Error(error);
+        throw new Error(error.message);
       });
   } else {
     const { student } = await Student.find({})
@@ -69,7 +70,7 @@ const fetchStudent = asyncHandler(async (req, res) => {
         }
       })
       .catch((error) => {
-        throw new Error(error);
+        throw new Error(error.message);
       });
   }
 });
@@ -457,7 +458,7 @@ const addAdmin = asyncHandler(async (req, res) => {
       })
       .catch((error) => {
         res.status(400);
-        throw new Error(error);
+        throw new Error(error.message);
       });
   }
 });

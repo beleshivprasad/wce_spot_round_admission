@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import MainScreen from "../../../Components/MainScreen";
@@ -37,6 +37,7 @@ const Admin = () => {
       history.push("/");
       window.location.reload(true);
     } catch (error) {
+      setLoading(false);
       setError(error.response.data.message);
       setTimeout(() => {
         setLoading(false);
@@ -47,7 +48,8 @@ const Admin = () => {
   return (
     <MainScreen title={"Admin Login"}>
       <Container>
-        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+        {/* {error && <ErrorMessage variant="danger">{error}</ErrorMessage>} */}
+        {error && <Alert variant="danger">{error}</Alert>}
         {loading && <Loading></Loading>}
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
